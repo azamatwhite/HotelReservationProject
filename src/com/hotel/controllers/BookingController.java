@@ -15,35 +15,34 @@ public class BookingController {
     private final IBookingRepository bookingRepo;
     private final IRoomRepository roomRepo;
 
-    // Конструктор арқылы интерфейстерді қабылдаймыз (Dependency Injection)
+   
     public BookingController(IBookingRepository bookingRepo, IRoomRepository roomRepo) {
         this.bookingRepo = bookingRepo;
         this.roomRepo = roomRepo;
     }
 
-    // Жаңа брондау жасау әдісі
+
     public String makeBooking(User user, int roomId, String checkInStr, String checkOutStr, List<Service> services) {
         LocalDate checkIn = DateUtils.parseDate(checkInStr);
         LocalDate checkOut = DateUtils.parseDate(checkOutStr);
 
-        // 1. Даталарды тексеру
+    
         if (!DateUtils.isValidRange(checkIn, checkOut)) {
-            return "Қате: Даталар дұрыс емес (өткен шақ немесе кету күні келу күнінен бұрын).";
+            return "Error: Dates are incorrect (past tense or departure date is before arrival date).";
         }
 
-        // 2. Бөлмені табу
+        
         Room room = roomRepo.getRoomById(roomId);
         if (room == null || !room.isAvailable()) {
-            return "Қате: Бөлме табылмады немесе бос емес.";
+            return "Error: Room not found or not available.";
         }
 
-        // 3. Брондау нысанын құру (мұнда баға автоматты есептеледі)
+       
         Booking booking = new Booking(0, user, room, checkIn, checkOut, services);
         
-        // 4. Базаға сақтау
+        
         bookingRepo.createBooking(booking);
-        room.setAvailable(false); // Бөлмені "бос емес" деп белгілеу
-
-        return "Брондау сәтті аяқталды! Жалпы сома: " + booking.getTotalPrice() + " KZT";
+        room.setAvailable(false);
+        return "Booking completed successfully! Total amount: " + booking.getTotalPrice() + " KZT";
     }
 }
