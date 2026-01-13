@@ -30,7 +30,7 @@ public class Main {
             System.out.print("Select an action: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Очистка буфера
+            scanner.nextLine();
 
             if (choice == 0) break;
 
@@ -61,7 +61,7 @@ public class Main {
                     System.out.print("Check-out date (YYYY-MM-DD): ");
                     String checkOut = scanner.nextLine();
 
-                    // Для упрощения без услуг, или можно добавить выбор
+               
                     User user = userRepo.getUserById(userId);
                     if (user != null) {
                         String res = bookingController.makeBooking(user, roomId, checkIn, checkOut, new ArrayList<>());
