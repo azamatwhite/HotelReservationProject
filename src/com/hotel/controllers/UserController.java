@@ -12,12 +12,12 @@ public class UserController {
 
     public String registerUser(String name, String email, String phone) {
         if (email == null || !email.contains("@")) {
-            return "Қате: Email форматы дұрыс емес.";
+            return "Error: Email format is incorrect.";
         }
 
         User newUser = new User(0, name, email, phone);
         userRepo.addUser(newUser);
         
-        return "Пайдаланушы сәтті тіркелді: " + name;
+        return "User successfully registered: " + name;
     }
 }

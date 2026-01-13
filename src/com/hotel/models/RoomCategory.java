@@ -12,7 +12,7 @@ public class RoomCategory {
         this.basePrice = basePrice;
     }
 
-    // Main.java файлына осы әдіс керек
+    // Main.java файлына осы керек
     public String getName() {
         return name;
     }

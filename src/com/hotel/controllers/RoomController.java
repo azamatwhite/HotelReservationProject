@@ -19,8 +19,8 @@ public class RoomController {
     // Бөлме туралы толық ақпаратты мәтін ретінде шығару
     public String getRoomDetails(int id) {
         Room room = roomRepo.getRoomById(id);
-        if (room == null) return "Бөлме табылмады.";
+        if (room == null) return "Room not found.";
         
-        return "Бөлме №" + room.getId() + " | Түрі: " + room.getCategory().getName();
+        return "Room №" + room.getId() + " | Type: " + room.getCategory().getName();
     }
 }

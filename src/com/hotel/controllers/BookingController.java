@@ -26,23 +26,22 @@ public class BookingController {
         LocalDate checkIn = DateUtils.parseDate(checkInStr);
         LocalDate checkOut = DateUtils.parseDate(checkOutStr);
 
-    
         if (!DateUtils.isValidRange(checkIn, checkOut)) {
-            return "Error: Dates are incorrect (past tense or departure date is before arrival date).";
+            return "Invalid dates.";
         }
 
-        
+        // сразу БД дан тексеретіндей қылдым
+        boolean isFree = bookingRepo.checkAvailability(roomId, checkIn, checkOut);
+
+        if (!isFree) {
+            return "Room is already booked for these dates.";
+        }
+
         Room room = roomRepo.getRoomById(roomId);
-        if (room == null || !room.isAvailable()) {
-            return "Error: Room not found or not available.";
-        }
-
-       
         Booking booking = new Booking(0, user, room, checkIn, checkOut, services);
-        
-        
+
         bookingRepo.createBooking(booking);
-        room.setAvailable(false);
-        return "Booking completed successfully! Total amount: " + booking.getTotalPrice() + " KZT";
-    }
+
+        return "Booking success! Total: " + booking.getTotalPrice() + " KZT";
+        }
 }
