@@ -1,4 +1,4 @@
-package com.hotel.repositories;
+package com.hotel.repositories.impl;
 
 import com.hotel.data.IDB;
 import com.hotel.models.User;

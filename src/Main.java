@@ -2,7 +2,8 @@ package com.hotel;
 
 import com.hotel.data.PostgresDB;
 import com.hotel.data.IDB;
-import com.hotel.repositories.*;
+import com.hotel.repositories.impl.*;
+import com.hotel.repositories.interfaces.*;
 import com.hotel.controllers.*;
 import com.hotel.models.*;
 import java.util.Scanner;
